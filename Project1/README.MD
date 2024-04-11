@@ -1,0 +1,5 @@
+- Collaboratively developed and optimized SQL queries in Jupyter Notebooks, successfully joining 2-3 tables, integrating a custom scalar function, and leveraging built-in SQL functions. Utilized group by summarization, subqueries, and Common Table Expressions (CTEs) to efficiently process and analyze data, resulting in enhanced query performance and insightful data summarization.
+
+- Implemented data serialization by converting SQL result sets into JSON objects, utilizing Docker and Azure Data Studio for robust database management and access. This approach streamlined data interchange and facilitated seamless integration with other systems, showcasing proficiency in modern data handling technologies.
+
+- Engineered a Java application using JDBC from an open-source library on GitHub to establish connectivity between Microsoft SQL Server databases and the Java program. This integration enabled the execution of SQL result sets and JSON data manipulation within the Java environment, demonstrating advanced skills in database programming and cross-platform development.
