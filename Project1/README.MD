@@ -59,5 +59,6 @@ javac -cp ".:path/to/mssql-jdbc-12.6.1.jre11.jar" Main.java
 
 2. Run the Java application:
 
-```java -cp ".:path/to/mssql-jdbc-12.6.1.jre11.jar" Main
+```
+java -cp ".:path/to/mssql-jdbc-12.6.1.jre11.jar" Main
 ```
