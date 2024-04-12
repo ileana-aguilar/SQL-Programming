@@ -44,7 +44,8 @@ git clone https://github.com/ileana-aguilar/SQL-Programming.git
 
 2. Navigate to the project directory:
 
-```cd path-to-your-project
+```
+cd path-to-your-project
 ```
 
 3. Load the SQL scripts into your SQL Server using Azure Data Studio to set up the database.
