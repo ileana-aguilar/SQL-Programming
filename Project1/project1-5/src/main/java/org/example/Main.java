@@ -1,60 +1,44 @@
 package org.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.ResultSetMetaData;
-
-
 public class Main {
-
     public static void main(String[] args) {
-        System.out.println("Connect to SQL Server and demo executing queries on different databases.");
-
-        String connectionUrlBase = "jdbc:sqlserver://localhost:13001;" +
-                                    "encrypt=true;" +
-                                    "trustServerCertificate=true;" +
-                                    "user=sa;" +
-                                    "password=PH@123456789;";
-
         String[][] queries = {
                 //Ileana Aguilar SUBMISSION
                 // Top Query (1)
-                    {"Northwinds2022TSQLV7", "WITH\n" +
-                            "  CustomerOrders\n" +
-                            "  AS\n" +
-                            "  (\n" +
-                            "    SELECT\n" +
-                            "      c.CustomerID,\n" +
-                            "      c.CustomerCompanyName,\n" +
-                            "      COUNT(o.OrderID) AS NumberOfOrders\n" +
-                            "    FROM\n" +
-                            "      Sales.Customer c\n" +
-                            "      JOIN Sales.[Order] o ON c.CustomerID = o.CustomerID\n" +
-                            "    GROUP BY\n" +
-                            "    c.CustomerID, c.CustomerCompanyName\n" +
-                            "  )\n" +
-                            "SELECT\n" +
-                            "  CustomerID,\n" +
-                            "  CustomerCompanyName,\n" +
-                            "  NumberOfOrders\n" +
-                            "FROM\n" +
-                            "  CustomerOrders\n" +
-                            "WHERE\n" +
-                            "  CustomerID IN (\n" +
-                            "    SELECT\n" +
-                            "  CustomerID\n" +
-                            "FROM\n" +
-                            "  CustomerOrders\n" +
-                            "WHERE\n" +
-                            "      NumberOfOrders > 5\n" +
-                            "  )\n" +
-                            "FOR JSON PATH, ROOT('CustomerOrdersDetails');"},
+                {"Northwinds2022TSQLV7", "WITH\n" +
+                        "  CustomerOrders\n" +
+                        "  AS\n" +
+                        "  (\n" +
+                        "    SELECT\n" +
+                        "      c.CustomerID,\n" +
+                        "      c.CustomerCompanyName,\n" +
+                        "      COUNT(o.OrderID) AS NumberOfOrders\n" +
+                        "    FROM\n" +
+                        "      Sales.Customer c\n" +
+                        "      JOIN Sales.[Order] o ON c.CustomerID = o.CustomerID\n" +
+                        "    GROUP BY\n" +
+                        "    c.CustomerID, c.CustomerCompanyName\n" +
+                        "  )\n" +
+                        "SELECT\n" +
+                        "  CustomerID,\n" +
+                        "  CustomerCompanyName,\n" +
+                        "  NumberOfOrders\n" +
+                        "FROM\n" +
+                        "  CustomerOrders\n" +
+                        "WHERE\n" +
+                        "  CustomerID IN (\n" +
+                        "    SELECT\n" +
+                        "  CustomerID\n" +
+                        "FROM\n" +
+                        "  CustomerOrders\n" +
+                        "WHERE\n" +
+                        "      NumberOfOrders > 5\n" +
+                        "  )\n" +
+                        "FOR JSON PATH, ROOT('CustomerOrdersDetails');"},
                 // Top Query (2)
-                            {
-                                "PrestigeCars", 
-                                "WITH\n" +
+                {
+                        "PrestigeCars",
+                        "WITH\n" +
                                 "    ModelCosts\n" +
                                 "    AS\n" +
                                 "    (\n" +
@@ -77,11 +61,11 @@ public class Main {
                                 "    INNER JOIN ModelCosts mc ON m.ModelID = mc.ModelID\n" +
                                 "ORDER BY TotalStockCount DESC\n" +
                                 "FOR JSON PATH, ROOT('SalesCustomerCategory');"
-                            },
+                },
                 // Top Query (3)
-                            {
-                                "Northwinds2022TSQLV7", 
-                                "CREATE OR ALTER FUNCTION dbo.CalculateAverageSale\n" +
+                {
+                        "Northwinds2022TSQLV7",
+                        "CREATE OR ALTER FUNCTION dbo.CalculateAverageSale\n" +
                                 "(\n" +
                                 "    @TotalSalesAmount MONEY,\n" +
                                 "    @NumberOfSales INT\n" +
@@ -131,11 +115,11 @@ public class Main {
                                 "    e.EmployeeLastName,\n" +
                                 "    c.CustomerCompanyName\n" +
                                 "FOR JSON PATH, ROOT('AverageSales');"
-                            },
+                },
                 //WORST QUERY (1)
-                            {
-                                "AdventureWorks2017", 
-                                "WITH\n" +
+                {
+                        "AdventureWorks2017",
+                        "WITH\n" +
                                 "    EmailCount\n" +
                                 "    AS\n" +
                                 "    (\n" +
@@ -158,11 +142,11 @@ public class Main {
                                 "GROUP BY BEC.BusinessEntityID, EC.EmailTotal\n" +
                                 "ORDER BY BEC.BusinessEntityID\n" +
                                 "FOR JSON PATH, ROOT('BusinessEmailCount');"
-                            },
+                },
                 //WORST QUERY (2)
-                            {
-                                "Northwinds2022TSQLV7", 
-                                "WITH\n" +
+                {
+                        "Northwinds2022TSQLV7",
+                        "WITH\n" +
                                 "    OrderSales\n" +
                                 "    AS\n" +
                                 "    (\n" +
@@ -184,11 +168,11 @@ public class Main {
                                 "GROUP BY c.CustomerId, c.CustomerCompanyName\n" +
                                 "ORDER BY TotalSalesAmount DESC\n" +
                                 "FOR JSON PATH, ROOT('TotalNRepairCosts');"
-                            },
+                },
                 //WORST QUERY (3)
-                            {
-                                "AdventureWorksDW2017", 
-                                "WITH\n" +
+                {
+                        "AdventureWorksDW2017",
+                        "WITH\n" +
                                 "    AverageSalesByCurrency\n" +
                                 "    AS\n" +
                                 "    (\n" +
@@ -219,96 +203,96 @@ public class Main {
                                 "ORDER BY\n" +
                                 "    OverallAverageSalesAmount DESC\n" +
                                 "FOR JSON PATH, ROOT('AverageSalesAmount');"
-                            },
+                },
 
                 //FIXED QUERY (1)
-                            {
-                                    "AdventureWorks2017",
-                                    "WITH\n" +
-                                            "    EmailCount\n" +
-                                            "    AS\n" +
-                                            "    (\n" +
-                                            "        SELECT\n" +
-                                            "            BusinessEntityID,\n" +
-                                            "            COUNT(EmailAddressID) AS EmailTotal\n" +
-                                            "        FROM Person.EmailAddress\n" +
-                                            "        GROUP BY BusinessEntityID\n" +
-                                            "    )\n" +
-                                            "\n" +
-                                            "SELECT\n" +
-                                            "    BEC.BusinessEntityID,\n" +
-                                            "    EC.EmailTotal,\n" +
-                                            "    (SELECT COUNT(PhoneNumber)\n" +
-                                            "    FROM Person.PersonPhone PersonPhoneNumber\n" +
-                                            "    WHERE PersonPhoneNumber.BusinessEntityID = BEC.BusinessEntityID) AS PhoneTotal\n" +
-                                            "FROM\n" +
-                                            "    Person.BusinessEntityContact BEC\n" +
-                                            "    LEFT JOIN EmailCount EC ON BEC.BusinessEntityID = EC.BusinessEntityID\n" +
-                                            "GROUP BY BEC.BusinessEntityID, EC.EmailTotal\n" +
-                                            "ORDER BY BEC.BusinessEntityID\n" +
-                                            "FOR JSON PATH, ROOT('BusinessEmailCount');"
-                            },
+                {
+                        "AdventureWorks2017",
+                        "WITH\n" +
+                                "    EmailCount\n" +
+                                "    AS\n" +
+                                "    (\n" +
+                                "        SELECT\n" +
+                                "            BusinessEntityID,\n" +
+                                "            COUNT(EmailAddressID) AS EmailTotal\n" +
+                                "        FROM Person.EmailAddress\n" +
+                                "        GROUP BY BusinessEntityID\n" +
+                                "    )\n" +
+                                "\n" +
+                                "SELECT\n" +
+                                "    BEC.BusinessEntityID,\n" +
+                                "    EC.EmailTotal,\n" +
+                                "    (SELECT COUNT(PhoneNumber)\n" +
+                                "    FROM Person.PersonPhone PersonPhoneNumber\n" +
+                                "    WHERE PersonPhoneNumber.BusinessEntityID = BEC.BusinessEntityID) AS PhoneTotal\n" +
+                                "FROM\n" +
+                                "    Person.BusinessEntityContact BEC\n" +
+                                "    LEFT JOIN EmailCount EC ON BEC.BusinessEntityID = EC.BusinessEntityID\n" +
+                                "GROUP BY BEC.BusinessEntityID, EC.EmailTotal\n" +
+                                "ORDER BY BEC.BusinessEntityID\n" +
+                                "FOR JSON PATH, ROOT('BusinessEmailCount');"
+                },
                 //FIXED QUERY (2)
-                            {
-                                    "Northwinds2022TSQLV7",
-                                    "WITH\n" +
-                                            "    OrderSales\n" +
-                                            "    AS\n" +
-                                            "    (\n" +
-                                            "        SELECT\n" +
-                                            "            OrderD.CustomerId,\n" +
-                                            "            OrderD.OrderId,\n" +
-                                            "            SUM(CONVERT(int, OrderDA.NewVal) * p.UnitPrice) AS TotalSales\n" +
-                                            "        FROM Sales.OrderDetailAudit OrderDA\n" +
-                                            "            INNER JOIN Sales.[Order] OrderD ON OrderDA.OrderId = OrderD.OrderId\n" +
-                                            "            INNER JOIN Production.Product p ON OrderDA.ProductId = p.ProductId\n" +
-                                            "        GROUP BY OrderD.CustomerId, OrderD.OrderId\n" +
-                                            "    )\n" +
-                                            "SELECT\n" +
-                                            "    c.CustomerId,\n" +
-                                            "    c.CustomerCompanyName,\n" +
-                                            "    SUM(os.TotalSales) AS TotalSalesAmount\n" +
-                                            "FROM OrderSales os\n" +
-                                            "    INNER JOIN Sales.Customer c ON os.CustomerId = c.CustomerId\n" +
-                                            "GROUP BY c.CustomerId, c.CustomerCompanyName\n" +
-                                            "ORDER BY TotalSalesAmount DESC\n" +
-                                            "FOR JSON PATH, ROOT('TotalNRepairCosts');"
-                            },
+                {
+                        "Northwinds2022TSQLV7",
+                        "WITH\n" +
+                                "    OrderSales\n" +
+                                "    AS\n" +
+                                "    (\n" +
+                                "        SELECT\n" +
+                                "            OrderD.CustomerId,\n" +
+                                "            OrderD.OrderId,\n" +
+                                "            SUM(CONVERT(int, OrderDA.NewVal) * p.UnitPrice) AS TotalSales\n" +
+                                "        FROM Sales.OrderDetailAudit OrderDA\n" +
+                                "            INNER JOIN Sales.[Order] OrderD ON OrderDA.OrderId = OrderD.OrderId\n" +
+                                "            INNER JOIN Production.Product p ON OrderDA.ProductId = p.ProductId\n" +
+                                "        GROUP BY OrderD.CustomerId, OrderD.OrderId\n" +
+                                "    )\n" +
+                                "SELECT\n" +
+                                "    c.CustomerId,\n" +
+                                "    c.CustomerCompanyName,\n" +
+                                "    SUM(os.TotalSales) AS TotalSalesAmount\n" +
+                                "FROM OrderSales os\n" +
+                                "    INNER JOIN Sales.Customer c ON os.CustomerId = c.CustomerId\n" +
+                                "GROUP BY c.CustomerId, c.CustomerCompanyName\n" +
+                                "ORDER BY TotalSalesAmount DESC\n" +
+                                "FOR JSON PATH, ROOT('TotalNRepairCosts');"
+                },
                 //FIXED QUERY (3)
-                            {
-                                    "AdventureWorksDW2017",
-                                    "WITH\n" +
-                                            "    AverageSalesByCurrency\n" +
-                                            "    AS\n" +
-                                            "    (\n" +
-                                            "        SELECT\n" +
-                                            "            f.CurrencyKey,\n" +
-                                            "            AVG(f.SalesAmount) AS AvgSalesAmount\n" +
-                                            "        FROM\n" +
-                                            "            dbo.FactInternetSales f\n" +
-                                            "            INNER JOIN\n" +
-                                            "            dbo.DimCurrency c ON f.CurrencyKey = c.CurrencyKey\n" +
-                                            "        WHERE\n" +
-                                            "        f.OrderDateKey IN (SELECT DateKey\n" +
-                                            "        FROM dbo.DimDate\n" +
-                                            "        WHERE CalendarYear = 2014)\n" +
-                                            "        GROUP BY\n" +
-                                            "        f.CurrencyKey\n" +
-                                            "    )\n" +
-                                            "SELECT\n" +
-                                            "    c.CurrencyName,\n" +
-                                            "    c.CurrencyAlternateKey,\n" +
-                                            "    AVG(a.AvgSalesAmount) AS OverallAverageSalesAmount\n" +
-                                            "FROM\n" +
-                                            "    AverageSalesByCurrency a\n" +
-                                            "    INNER JOIN\n" +
-                                            "    dbo.DimCurrency c ON a.CurrencyKey = c.CurrencyKey\n" +
-                                            "GROUP BY\n" +
-                                            "    c.CurrencyName, c.CurrencyAlternateKey\n" +
-                                            "ORDER BY\n" +
-                                            "    OverallAverageSalesAmount DESC\n" +
-                                            "FOR JSON PATH, ROOT('AverageSalesAmount');"
-                            },
+                {
+                        "AdventureWorksDW2017",
+                        "WITH\n" +
+                                "    AverageSalesByCurrency\n" +
+                                "    AS\n" +
+                                "    (\n" +
+                                "        SELECT\n" +
+                                "            f.CurrencyKey,\n" +
+                                "            AVG(f.SalesAmount) AS AvgSalesAmount\n" +
+                                "        FROM\n" +
+                                "            dbo.FactInternetSales f\n" +
+                                "            INNER JOIN\n" +
+                                "            dbo.DimCurrency c ON f.CurrencyKey = c.CurrencyKey\n" +
+                                "        WHERE\n" +
+                                "        f.OrderDateKey IN (SELECT DateKey\n" +
+                                "        FROM dbo.DimDate\n" +
+                                "        WHERE CalendarYear = 2014)\n" +
+                                "        GROUP BY\n" +
+                                "        f.CurrencyKey\n" +
+                                "    )\n" +
+                                "SELECT\n" +
+                                "    c.CurrencyName,\n" +
+                                "    c.CurrencyAlternateKey,\n" +
+                                "    AVG(a.AvgSalesAmount) AS OverallAverageSalesAmount\n" +
+                                "FROM\n" +
+                                "    AverageSalesByCurrency a\n" +
+                                "    INNER JOIN\n" +
+                                "    dbo.DimCurrency c ON a.CurrencyKey = c.CurrencyKey\n" +
+                                "GROUP BY\n" +
+                                "    c.CurrencyName, c.CurrencyAlternateKey\n" +
+                                "ORDER BY\n" +
+                                "    OverallAverageSalesAmount DESC\n" +
+                                "FOR JSON PATH, ROOT('AverageSalesAmount');"
+                },
                 // TARUNA'S SUBMISSION
                 // Top Query (1)
                 {"WideWorldImporters", "WITH SupplierPerformance AS (\n" +
@@ -927,43 +911,11 @@ public class Main {
 
         };
 
-
         for (String[] queryInfo : queries) {
             String dbName = queryInfo[0];
             String sqlQuery = queryInfo[1];
-
-            // Construct connection URL for the specific database
-            String connectionUrl = connectionUrlBase + "databaseName=" + dbName + ";";
-            try (Connection connection = DriverManager.getConnection(connectionUrl);
-                 Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(sqlQuery)) {
-
-                System.out.println("Connected to database: " + dbName);
-                System.out.println("Executing query: " +'\n'+ sqlQuery);
-
-                ResultSetMetaData metaData = resultSet.getMetaData();
-                int columnCount = metaData.getColumnCount();
-
-                // Print column names
-                for (int i = 1; i <= columnCount; i++) {
-                    System.out.print(metaData.getColumnLabel(i));
-                    if (i < columnCount) System.out.print(" | ");
-                }
-                System.out.println();
-
-                // Display the result set
-                while (resultSet.next()) {
-                    for (int i = 1; i <= columnCount; i++) {
-                        System.out.print(resultSet.getString(i));
-                        if (i < columnCount) System.out.print(" | ");
-                    }
-                    System.out.println();
-                }
-                System.out.println("Query completed on database: " + dbName);
-            } catch (Exception e) {
-                System.out.println("Error occurred in database: " + dbName);
-                e.printStackTrace();
-            }
+            DatabaseManager.executeQuery(dbName, sqlQuery);
         }
     }
 }
+
